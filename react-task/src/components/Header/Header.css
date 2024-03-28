@@ -1,0 +1,29 @@
+.welcome,h6:hover,.empdir{
+    color: rgb(62, 166, 240);
+}
+.nav-item,.welcome,.userimage,h6,.specification,.closepopup{
+    cursor: pointer;
+}
+.brandicon{
+    height:50px;
+}
+.ultimate{
+    margin-top: -6%;
+}
+.empdir{
+    font-size:29px;
+}
+.welcome{
+    margin-top:30px;
+    font-size: 25px;
+}
+.userimage{
+    margin-top: 20px;
+    height:45px;
+}
+.rightcontainer{
+    margin-left: 17px;
+}
+.specification{
+    font-size: 14px;
+}

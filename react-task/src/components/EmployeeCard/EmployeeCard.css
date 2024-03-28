@@ -1,0 +1,57 @@
+.card {
+    border-radius: 1px;
+    background-color: #d2cecedd;
+    border: none;
+    height:110px;
+    width:235px;
+    z-index: -1;
+}
+.employeeImg{
+    width:90px;
+    height:90px;
+}
+
+ul{
+    font-size:17px;
+    color: gray;
+}
+.buttons{
+margin-left:18px;
+}
+.icon{
+    border-radius:4px;
+    font-size:10px;
+    margin-right: 4px;
+    border:none;
+    background-color: #aeadad;
+}
+.emails{
+    color: #aeadad!important;
+}
+
+.employeeLabel{
+    font-size: 35px;
+    margin-top: -25px; 
+    margin-left: 30px;
+   color: rgb(47, 44, 44);
+}
+
+.content { 
+    position: absolute; 
+    top: 30%; 
+    left: 30%; 
+    background-color:white;
+    box-shadow: 0 0px 10px 3px rgb(0 0 0 /0.2);
+    border-radius: 6px;
+    width: 650px; 
+    height: 450px;
+    padding: 12px;
+} 
+.editbtn{
+    margin-left: 33px;
+    width:70px;
+}
+.updatebtn{
+    margin-left: 250px;
+    width:100px;
+}

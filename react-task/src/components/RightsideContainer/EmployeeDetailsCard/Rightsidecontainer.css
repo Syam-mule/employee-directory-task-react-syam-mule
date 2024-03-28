@@ -1,0 +1,33 @@
+
+.fa,.buttonsBg,.addemployeebtn,.clearbtn {
+    color: aliceblue;
+}
+.buttonsBg{
+   background-color:rgb(62, 166, 240);
+   font-size: 20px;
+}
+.usericon{
+    margin-left: 12px;
+}
+.addemployeebtn{
+    background-color:rgb(62, 166, 240);
+   margin-left:98px;
+   height: 39px;
+}
+.clearbtn{
+    background-color: #0bd718;
+    width:100px;
+}
+.dropdown{
+    width:200px;
+    height: 35px;
+}
+
+.buttons{
+    margin-top:-33px;
+    margin-left: 8px;
+}
+
+.note{
+    margin-left: -12px;
+}
