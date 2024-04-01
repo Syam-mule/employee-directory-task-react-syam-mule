@@ -1,32 +1,40 @@
 import React, { Component } from "react";
 import RegistrationForm from "../../Form/RegistrationForm/RegistrationForm";
-import EmployeeCard from "../../EmployeeCard/EmployeeCard";
 import './Rightsidecontainer.css';
 import Buttonpagination from "../A-Z AlphabetsButtons/AlphbetsButtons";
 import Searchfilter from "../SearchFilter/SearchFilter";
 import  IEmployee  from '../../Interface/EmployeeInterface';
-
+import { EmployeeContainer } from "../../EmployeeContainer/EmployeeContainer";
+import EmployeeCategory from "../../Filter/Employeecategory";
+import { getData } from "../../../services/services";
 
 interface IRightsideComponentState {
   isRegistrationOpen: boolean;
   employees: IEmployee[];
+  filteredData: IEmployee[];
 }
 
 class RightsideComponent extends Component<{}, IRightsideComponentState> {
-  constructor(props: {}) {
+  handlerSearchFilter: any;
+  constructor(props:{}) {
     super(props);
     this.state = {
       isRegistrationOpen: false,
-      employees: [],
+      employees: JSON.parse(localStorage.getItem('employees')||"[]"),
+      filteredData: [],
     };
   }
 
-  componentDidMount() {
-    const employeeDetails = localStorage.getItem("employees");
-    if (employeeDetails) {
-      const employees: IEmployee[] = JSON.parse(employeeDetails);
-      this.setState({ employees });
-    }
+  handleData = () =>{
+    const employeeDetails: any = localStorage.getItem("employees");
+    this.setState({employees: JSON.parse(employeeDetails), filteredData:JSON.parse(employeeDetails) })
+  }
+
+  handleFilteredData = (data: string)=>{
+    const employeeDetails: any = localStorage.getItem("employees");
+    let alpha = JSON.parse(employeeDetails).filter((emp:IEmployee)=>emp.firstname.toLowerCase().startsWith(data));
+    console.log(alpha);
+     this.setState({employees:alpha});
   }
 
   toggleRegistration = () => {
@@ -35,27 +43,57 @@ class RightsideComponent extends Component<{}, IRightsideComponentState> {
     }));
   };
 
+  handleDepartment = (department:string)=>{
+    let filteredEmployees = getData().filter((emp:IEmployee)=>emp.department==department);
+    this.setState({employees:filteredEmployees},()=>{console.log(this.state.employees)});
+}
+  
+handleJobtitle=(jobtitle:string)=>{
+  let filteredjobEmployees =getData().filter((emp:IEmployee)=>emp.jobtitle==jobtitle);
+  this.setState({employees:filteredjobEmployees},()=>{console.log(this.state.employees)});
+}
+
+handleofficer=(officer:string)=>{
+  let filteredofficerEmployees = getData().filter((emp:IEmployee)=>emp.officer==officer);
+  this.setState({employees:filteredofficerEmployees},()=>{console.log(this.state.employees)});
+}
+
+
+
+filteringCards= (searchingText:string,seachingElement:keyof IEmployee)=>{
+ let filteringCards= getData().filter((emp:IEmployee)=>emp[seachingElement].toLowerCase().includes(searchingText));
+ this.setState({employees:filteringCards})
+}
+
+deletedEmployees =()=>{
+  this.setState({employees:getData()})
+}
   render() {
-    const { isRegistrationOpen, employees} = this.state;
+    const { isRegistrationOpen} = this.state;
     return (
-      <div className="mt-5 rightcontainer">
-        {/* <button type="button" className="buttonsBg border">
+      <div className='d-flex'> 
+          <div className='col-lg-3'>
+              <EmployeeCategory selectedDepartment={this.handleDepartment} selectedJobtitle={this.handleJobtitle} selectedEmployeeOfficer={this.handleofficer}/>
+          </div>
+          <div className="mt-3 rightcontainer">  
+            <button type="button" className="buttonsBg border userbutton">
           <i className="fa fa-user"></i>
-        </button> */}
-        <div className="buttons">
-        <Buttonpagination/>
-        </div>
+          </button>
+          <div className="buttons">
+            <Buttonpagination setFilteredData={this.handleFilteredData}/>
+          </div>
 
         <div className="col-lg-12 rightcontainer">
           <nav className="navbar navbar-expand-lg">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <Searchfilter employees={employees}/>
+                <Searchfilter filteringCards = {this.filteringCards}/>
 
-                <button className="addemployeebtn mt-2 border-0 " data-toggle="modal" data-target="#exampleModal" onClick={this.toggleRegistration}>
+                <button className="addemployeebtn mt-2 border-0" onClick={this.toggleRegistration}>
                   Add Employee 
-                </button>
-                {isRegistrationOpen && <RegistrationForm/>}
+                  </button>
+                {isRegistrationOpen && <RegistrationForm handleAddBtnClick={this.handleData}/>}
+                
               </ul>
             </div>
           </nav>
@@ -65,13 +103,14 @@ class RightsideComponent extends Component<{}, IRightsideComponentState> {
               <b className="note">Note:</b> Please use the advanced filter options to refine your
             </p>
           </div>
-          <div className='employeeContainer row border'>
-            {employees.map((employee, index) => (
-              <EmployeeCard key={index} employee={employee} departmentMap={{}} officerMap={{}}/>
-            ))}
-          </div>
-        </div>
+         
+           
+            <EmployeeContainer employee = {this.state.employees} isDeleted={this.deletedEmployees}/>
+
+        </div>   
       </div>
+      </div>
+     
     );
   }
 }

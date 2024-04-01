@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-import profile from '../../resources/images/profile.jpg';
 import  IEmployee  from '../Interface/EmployeeInterface';
-
-// interface IEmployee {
-//   firstname: string;
-//   lastname: string;
-//   email: string;
-//   department: string;
-//   jobtitle: string;
-//   phonenumber: string;
-//   skypeid: string;
-//   officer: string;
-// }
 
 interface IEmployeeJobtitleProps {
   employees: IEmployee[];
+  selectedJobtitle:(selectedJobtitle:string)=>void;
 }
 
 interface IEmployeeJobtitleState {
@@ -51,16 +40,12 @@ class EmployeeJobtitle extends React.Component<IEmployeeJobtitleProps, IEmployee
   }
 
   handleJobTitleClick = (jobTitle: string) => {
-    this.setState((prevState) => ({
-      selectedJobTitle: prevState.selectedJobTitle === jobTitle ? null : jobTitle,
-    }));
-    console.log("jobtitleclick");
+    this.props.selectedJobtitle(jobTitle);
+    console.log("color");
   };
 
   render() {
-    const { employeeJobtitleMap, selectedJobTitle } = this.state;
-    const { employees } = this.props;
-
+    const { employeeJobtitleMap} = this.state;
     return (
       <div className="jobtitles">
         {Object.entries(employeeJobtitleMap).map(([jobtitle, count]) => (
@@ -68,31 +53,6 @@ class EmployeeJobtitle extends React.Component<IEmployeeJobtitleProps, IEmployee
             {`${jobtitle} (${count})`}
           </section>
         ))}
-        {/* <div className='employeeContainer  border'>
-          {selectedJobTitle && employees
-            .filter((employee) => employee.jobtitle === selectedJobTitle)
-            .map((employee, index) => (
-              <div className="col-md-4 col-xl-3 specification text-secondary cardalign p-2">
-                <div className="card">
-                  <div className="card-block d-flex">
-                    <div className="image">
-                      <img className="employeeImg p-2" src={profile} alt="Employee"/>
-                    </div>
-                    <div className="employeeDetails mt-1 p-1">
-                      <section>{employee.firstname} {employee.lastname}</section>
-                      <section>{employee.jobtitle}</section>
-                      <section className="employeeDept">{employee.department}</section>
-                      <button className="icon"><i className="fa fa-phone"></i></button>
-                      <i className="fa fa-envelope emails p-1"></i>
-                      <i className="fa fa-comment emails p-1"></i>
-                      <i className="fa fa-star emails p-1"></i>
-                      <i className="fa fa-heart emails p-1"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-        </div> */}
       </div>
       
     );

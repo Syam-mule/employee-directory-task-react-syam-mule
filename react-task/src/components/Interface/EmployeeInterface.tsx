@@ -1,6 +1,6 @@
 
 interface IEmployee {
-    
+    searchingText: string;
     firstname: string;
     lastname: string;
     email: string;
@@ -9,5 +9,6 @@ interface IEmployee {
     phonenumber: string;
     skypeid: string;
     officer: string;
+   
   }
   export default IEmployee;

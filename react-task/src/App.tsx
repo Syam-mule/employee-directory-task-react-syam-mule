@@ -3,19 +3,30 @@ import './App.css';
 import Header from './components/Header/Header';
 import EmployeeCategory from './components/Filter/Employeecategory';
 import RightContainer from './components/RightsideContainer/EmployeeDetailsCard/Rightsidecontainer';
-class App extends React.Component {
-  
+import IEmployee from './components/Interface/EmployeeInterface';
+
+interface IAppState
+{
+  employees:IEmployee[];
+}
+class App extends React.Component<{},IAppState> {
+  constructor(props:{})
+  {
+    super(props)
+   this. state = 
+    {
+       employees:JSON.parse(localStorage.getItem('employees')||"[]")
+
+    }
+  }
+
   render() {
     return (
       <div className='container'>
            <Header/>
       <div className="row col-lg-12">
-        <div className='col-lg-3'>
-            <EmployeeCategory/>
-            </div>
-            <div className='col-lg-9'>
+
             <RightContainer/>  
-            </div>
       </div>
       
       </div>

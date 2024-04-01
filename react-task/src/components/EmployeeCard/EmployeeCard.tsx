@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
 import profile from '../../resources/images/profile.jpg';
 import EditForm from '../Form/EditForm/EditEmployee';
-import  IEmployee  from '../Interface/EmployeeInterface';
-// interface IEmployee {
-//   firstname: string;
-//   lastname: string;
-//   email: string;
-//   department: string;
-//   jobtitle: string;
-//   phonenumber: string;
-//   skypeid: string;
-//   officer: string;
-// }
+import { setData } from '../../services/services';
+import IEmployee from '../Interface/EmployeeInterface';
+
 
 interface IEmployeeCardProps {
   employee: IEmployee;
   departmentMap: { [key: string]: number };
   officerMap: { [key: string]: number };
+  isDeleted:()=>void;
 }
 
 interface IEmployeeCardState {
@@ -51,12 +44,13 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
 
 
   handleEditFormHide = () => {
-    this.setState({ showEditForm: false });
+    this.setState({ 
+      showEditForm: false 
+    });
   }
 
   deleteEmployeeData = () => {
     const { employee } = this.props;
-    console.log('delete operation..' + employee);
     const employeeDetails = localStorage.getItem('employees');
     if (employeeDetails) {
       const employees: IEmployee[] = JSON.parse(employeeDetails);
@@ -64,22 +58,26 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
       if (index !== -1) {
         employees.splice(index, 1); 
         localStorage.setItem('employees', JSON.stringify(employees));
-        this.setState({ showEmployeeDetails: true });
-        window.location.reload();
+      
+        this.setState({ showEmployeeDetails: true},()=>{
+          this.props.isDeleted();
+        });
       }
     }
   };
+
+
   
   render() {
     const {employee} = this.props;
     const { showEmployeeDetails, showEditForm, editEmployeeDetails } = this.state;
-   
+    
     return (
       <div className="col-md-4 col-xl-3 specification text-secondary cardalign p-2" onClick={this.toggleEmployeeDetails}>
         <div className="card">
           <div className="card-block d-flex">
             <div className="image">
-              <img className="employeeImg p-2" src={profile} alt="Employee" />
+              <img className="employeeImg p-2" src={profile} alt="Employee"/>
             </div>
             <div className="employeeDetails mt-1 p-1">
               <section>{employee.firstname} {employee.lastname}</section>
@@ -120,7 +118,7 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
             </div>
           </div>
         )}
-        {showEditForm && <EditForm editEmployee={editEmployeeDetails} onHide={this.handleEditFormHide} />}
+        {showEditForm && <EditForm editEmployee={editEmployeeDetails} onHide={this.handleEditFormHide}/>}
       </div>
     );
   }

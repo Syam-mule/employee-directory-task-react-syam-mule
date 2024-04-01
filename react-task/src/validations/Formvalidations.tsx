@@ -108,7 +108,8 @@ class FormValidations extends Component<{}, FormState> {
   render() {
     const { errors } = this.state;
     return (
-      <RegistrationForm/>
+      // <RegistrationForm/>
+      <></>
     );
   }
 }

@@ -11,7 +11,7 @@
 }
 .addemployeebtn{
     background-color:rgb(62, 166, 240);
-   margin-left:98px;
+   margin-left:184px;
    height: 39px;
 }
 .clearbtn{
@@ -29,5 +29,11 @@
 }
 
 .note{
-    margin-left: -12px;
+    margin-left: -45px;
+}
+.userbutton{
+    margin-left:-28px;
+}
+.employeeContainer{
+    margin-left: -42px;
 }

@@ -6,11 +6,11 @@ import  IEmployee  from '../../Interface/EmployeeInterface';
 
 interface IElementState {
   searchTerm: string;
-  searchElement: keyof IEmployee |'all';
+  searchElement: keyof IEmployee;
 }
 
 interface Props {
-  employees: IEmployee[];
+  filteringCards:(searchingText:string,seachingElement:keyof IEmployee)=>void;
 }
 
 class Searchfilter extends Component<Props, IElementState> {
@@ -18,7 +18,7 @@ class Searchfilter extends Component<Props, IElementState> {
     super(props);
     this.state = {
       searchTerm: '',
-      searchElement: 'all',
+      searchElement:'firstname',
     };
   }
 
@@ -26,48 +26,31 @@ class Searchfilter extends Component<Props, IElementState> {
     const savedSearchTerm = localStorage.getItem('searchTerm');
     const savedSearchElement = localStorage.getItem('searchElement') as keyof IEmployee || 'all';
     if (savedSearchTerm && savedSearchElement) {
-      this.setState({
-        searchTerm: savedSearchTerm,
-        searchElement: savedSearchElement,
+      this.setState({searchTerm: savedSearchTerm,searchElement: savedSearchElement,
       });
     }
   }
 
   handleSearchTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value;
-    this.setState({ searchTerm });
-    localStorage.setItem('searchTerm', searchTerm);
+    this.setState({ searchTerm:event.target.value },()=>{
+      this.props.filteringCards(this.state.searchTerm,this.state.searchElement);
+    });
   };
 
   handleSearchElementChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const searchElement = event.target.value as keyof IEmployee | 'all';
-    this.setState({ searchElement, searchTerm: '' }, () => {
-      localStorage.setItem('searchElement', searchElement);
-      localStorage.removeItem('searchTerm');
+    this.setState({ searchElement:event.target.value as keyof IEmployee}, () => {
+      this.props.filteringCards(this.state.searchTerm,this.state.searchElement);
     });
   };
 
   handleClear = () => {
-    this.setState({ searchTerm: '', searchElement: 'all' });
-    localStorage.removeItem('searchTerm');
-    localStorage.setItem('searchElement', 'all');
+    this.setState({ searchTerm: '', searchElement: "firstname"},()=>{
+      this.props.filteringCards(this.state.searchTerm,this.state.searchElement);
+    });
   };
 
   render() {
     const { searchTerm, searchElement } = this.state;
-    const { employees } = this.props;
-
-    if (!employees) {
-      return <div>No employees data provided!</div>;
-    }
-
-    const filteredEmployees = employees.filter(employee => {
-      if (searchElement === 'all') {
-        return Object.values(employee).join('').toLowerCase().includes(searchTerm.toLowerCase());
-      } else {
-        return (employee[searchElement as keyof IEmployee] as string).toLowerCase().includes(searchTerm.toLowerCase());
-      }
-    });
 
     return (
       <div className="employeecard">
@@ -107,34 +90,8 @@ class Searchfilter extends Component<Props, IElementState> {
           </div>
         </nav>
 
-        {/* <div className="specification carddetails  p-2 mt-2 d-flex border">
-          {filteredEmployees.map(employee => (
-           
-              <div className="card me-3">
-                <div className="card-block d-flex">
-                  <div className="image">
-                    <img className="employeeImg p-2" src={profile} alt="Employee" />
-                  </div>
-                  <div className="employeeDetails mt-1 p-1">
-                    <section>
-                      {employee.firstname} {employee.lastname}
-                    </section>
-                    <section>{employee.jobtitle}</section>
-                    <section className="employeeDept">{employee.department}</section>
-                    <button className="icon">
-                      <i className="fa fa-phone"></i>
-                    </button>
-                    <i className="fa fa-envelope emails p-1"></i>
-                    <i className="fa fa-comment emails p-1"></i>
-                    <i className="fa fa-star emails p-1"></i>
-                    <i className="fa fa-heart emails p-1"></i>
-                  </div>
-                </div>
-              </div>
-          
-          ))}
-        </div> */}
-      </div>
+        </div> 
+    
     );
   }
 }

@@ -5,27 +5,25 @@ import EmployeeJobtitle from "./JobTitle";
 import EmployeeOfficer from "./Officers";
 import  IEmployee  from '../Interface/EmployeeInterface';
 
-// interface IEmployee {
-//   firstname: string;
-//   lastname: string;
-//   email: string;
-//   department: string;
-//   jobtitle: string;
-//   phonenumber: string;
-//   skypeid: string;
-//   officer: string;
-// }
+
 
 interface IDepartmentMap {
   [key: string]: number;
+  
+}
+interface IEmployeeCategoryProps
+{
+  selectedDepartment:(selectedDepartment:string)=>void;
+  selectedJobtitle:(selectedJobtitle:string)=>void;
+  selectedEmployeeOfficer:(selectedOfficer:string)=>void;
 }
 
 interface IEmployeeDetails{
    employees: IEmployee[];
    departmentMap: IDepartmentMap
 }
-class EmployeeCategory extends React.Component<{}, IEmployeeDetails> {
-  constructor(props: {}) {
+class EmployeeCategory extends React.Component<IEmployeeCategoryProps, IEmployeeDetails> {
+  constructor(props:IEmployeeCategoryProps) {
     super(props);
     this.state = {
       employees: [],
@@ -51,6 +49,7 @@ class EmployeeCategory extends React.Component<{}, IEmployeeDetails> {
     this.setState({departmentMap});
   }
 
+
   render() {
     const { employees} = this.state;
 
@@ -59,18 +58,18 @@ class EmployeeCategory extends React.Component<{}, IEmployeeDetails> {
         <div className="mt-4">
           <h6>Department</h6>
           <div className="specification">
-          <EmployeeDepartments employees={employees} />
+          <EmployeeDepartments employees={employees} selectedDepartment={this.props.selectedDepartment}/>
           </div>
 
           <div className="mt-3">
             <h6>Offices</h6>
-            <EmployeeOfficer employees={employees}/>
+            <EmployeeOfficer employees={employees} selectedOfficer={this.props.selectedEmployeeOfficer}/>
           </div>
 
           <div className="mt-3">
             <h6>Job Titles</h6>
             <div className="text-secondary specification"></div>
-            <EmployeeJobtitle employees={employees}/>
+            <EmployeeJobtitle employees={employees} selectedJobtitle={this.props.selectedJobtitle}/>
           </div>
         </div>
         <a className="link" href="#">

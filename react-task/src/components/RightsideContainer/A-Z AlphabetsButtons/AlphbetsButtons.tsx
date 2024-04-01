@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../EmployeeCard/EmployeeCard.css'
 import './AlphabetsButtons.css';
-import EmployeeCard from '../../EmployeeCard/EmployeeCard';
 
 interface IEmployee {
   firstname: string;
@@ -14,12 +13,15 @@ interface IEmployee {
   officer: string;
 }
 
-interface State {
+interface buttonState {
   filteredEmployees: IEmployee[];
 }
+interface IButtonProps{
+  setFilteredData: (data: string)=>void;
+}
 
-class Buttonpagination extends React.Component<{},State> {
-  constructor(props:{}) {
+class Buttonpagination extends React.Component<IButtonProps,buttonState> {
+  constructor(props:IButtonProps) {
     super(props);
     this.state = {
       filteredEmployees: [],
@@ -36,9 +38,8 @@ class Buttonpagination extends React.Component<{},State> {
 
   setLetter = (x: string) => {
     const letter = x.toLowerCase();
-    const employeeList: IEmployee[] = JSON.parse(localStorage.getItem('employees') || '[]');
-    const filterByLetter = employeeList.filter(employee => employee.firstname.toLowerCase().startsWith(letter));
-    this.setState({ filteredEmployees: filterByLetter });
+    this.props.setFilteredData(letter);
+
   };
 
   render() {
@@ -56,13 +57,6 @@ class Buttonpagination extends React.Component<{},State> {
             </button>
           ))}
         </div>
-        {/* <div className='employeeContainer row '>
-        {this.state.filteredEmployees.map((employee, index) => (
-          <div key={index} className="p-1">
-            <EmployeeCard key={employee.firstname} employee={employee} departmentMap={{}} officerMap={{}} />
-          </div>
-        ))}
-      </div> */}
       </div>
     );
   }
