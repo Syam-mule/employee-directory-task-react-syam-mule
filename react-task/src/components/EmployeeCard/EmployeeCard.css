@@ -55,3 +55,43 @@ margin-left:18px;
     margin-left: 250px;
     width:100px;
 }
+
+
+.confirmation-popup {
+    position: absolute;
+    top:58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    align-items: center;
+    padding: 65px;
+    margin-left: 90px;
+    border-radius: 8px;
+    width:500px;
+    height:200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .confirmation-popup button {
+    margin-right: 50px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 34px;
+  }
+  
+  .confirmation-popup button.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .confirmation-popup button.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .confirmation-popup button:hover {
+    opacity: 0.8;
+  }
+  

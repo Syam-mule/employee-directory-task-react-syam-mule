@@ -14,8 +14,8 @@ interface EmployeeContainerState{
 export class EmployeeContainer extends React.Component<EmployeeContainerProps,EmployeeContainerState> {
     constructor(props:EmployeeContainerProps){
         super(props)
-
     }
+
     static getDerivedStateFromProps(props:EmployeeContainerProps)
     {
         return {employees:props.employee}

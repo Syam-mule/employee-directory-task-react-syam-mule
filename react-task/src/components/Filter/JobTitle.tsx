@@ -42,7 +42,6 @@ class EmployeeJobtitle extends React.Component<IEmployeeJobtitleProps, IEmployee
 
   handleJobTitleClick = (jobTitle: string) => {
     this.props.selectedJobtitle(jobTitle);
-    console.log("color");
   };
 
   render() {

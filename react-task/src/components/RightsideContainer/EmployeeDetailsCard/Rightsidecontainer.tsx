@@ -10,7 +10,7 @@ import { getData } from "../../../services/services";
 
 interface IRightsideComponentState {
   isRegistrationOpen: boolean;
-  employees: IEmployee[];
+  employeeDetails: IEmployee[];
   filteredData: IEmployee[];
 }
 
@@ -20,21 +20,19 @@ class RightsideComponent extends Component<{}, IRightsideComponentState> {
     super(props);
     this.state = {
       isRegistrationOpen: false,
-      employees: JSON.parse(localStorage.getItem('employees')||"[]"),
+      employeeDetails: getData(),
       filteredData: [],
     };
   }
 
   handleData = () =>{
-    const employeeDetails: any = localStorage.getItem("employees");
-    this.setState({employees: JSON.parse(employeeDetails), filteredData:JSON.parse(employeeDetails) })
+    this.setState({employeeDetails: getData(), filteredData:getData() })
   }
 
   handleFilteredData = (data: string)=>{
-    const employeeDetails: any = localStorage.getItem("employees");
-    let alpha = JSON.parse(employeeDetails).filter((emp:IEmployee)=>emp.firstname.toLowerCase().startsWith(data));
+    let alpha =getData().filter((emp:IEmployee)=>emp.firstname.toLowerCase().startsWith(data));
     console.log(alpha);
-     this.setState({employees:alpha});
+     this.setState({employeeDetails:alpha});
   }
 
   toggleRegistration = () => {
@@ -45,28 +43,27 @@ class RightsideComponent extends Component<{}, IRightsideComponentState> {
 
   handleDepartment = (department:string)=>{
     let filteredEmployees = getData().filter((emp:IEmployee)=>emp.department==department);
-    this.setState({employees:filteredEmployees},()=>{console.log(this.state.employees)});
+    this.setState({employeeDetails:filteredEmployees});
 }
   
 handleJobtitle=(jobtitle:string)=>{
   let filteredjobEmployees =getData().filter((emp:IEmployee)=>emp.jobtitle==jobtitle);
-  this.setState({employees:filteredjobEmployees},()=>{console.log(this.state.employees)});
+  this.setState({employeeDetails:filteredjobEmployees});
 }
 
 handleofficer=(officer:string)=>{
   let filteredofficerEmployees = getData().filter((emp:IEmployee)=>emp.officer==officer);
-  this.setState({employees:filteredofficerEmployees},()=>{console.log(this.state.employees)});
+  this.setState({employeeDetails:filteredofficerEmployees});
 }
-
 
 
 filteringCards= (searchingText:string,seachingElement:keyof IEmployee)=>{
  let filteringCards= getData().filter((emp:IEmployee)=>emp[seachingElement].toLowerCase().includes(searchingText));
- this.setState({employees:filteringCards})
+ this.setState({employeeDetails:filteringCards})
 }
 
 deletedEmployees =()=>{
-  this.setState({employees:getData()})
+  this.setState({employeeDetails:getData()})
 }
   render() {
     const { isRegistrationOpen} = this.state;
@@ -105,7 +102,7 @@ deletedEmployees =()=>{
           </div>
          
            
-            <EmployeeContainer employee = {this.state.employees} isDeleted={this.deletedEmployees}/>
+            <EmployeeContainer employee = {this.state.employeeDetails} isDeleted={this.deletedEmployees}/>
 
         </div>   
       </div>

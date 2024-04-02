@@ -193,17 +193,15 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
        phonenumber,
        skypeid,
        officer,
-       searchingText: ""
+       searchingText: "",
      };
-
-
 
     saveEmployeeData(employee);
     this.setState(prevState => ({
-      userRegistrationForm: true 
+      userRegistrationForm: false
        }));
     this.props.handleAddBtnClick!();
-    this.setState({ updatebtn: true,userRegistrationForm: false });
+    this.setState({ updatebtn: true , userRegistrationForm: false});
   }
   };
   
@@ -229,7 +227,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
   };
   handleUpdateBtnClick = ()=>{
     this.props.handleUpdateBtnClick(this.state.data)
-    this.setState({ updatebtn: false,userRegistrationForm: false });
+    this.setState({ updatebtn: false, userRegistrationForm: false});
   }
 
   render() {
@@ -261,7 +259,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
                            <h5 className="modal-title" id="exampleModalLabel">{this.state.userRegistrationForm ?"Add Employee" : "Edit Employee"}</h5>
                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                          </div> */}
-     {/* <label className="fs-4 fw-bold">{this.state.userRegistrationForm?("ADD EMPLOYEE"):("EDIT EMPLOYEE")}</label> */}
+     <label className="fs-4 fw-bold">{this.state.userRegistrationForm?"Employee Details":''}</label>
                  <div className="row">
            <div className="mb-2 col-md-5">
             <span className="close" title="Close Modal" onClick={this.handleCloseForm}>
@@ -375,10 +373,10 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
         </div>
       </form>
       </div>
-  //      </div>
-  //      </div>
-  //     </div>
-  //  </div>
+//        </div>
+//       </div>
+//       </div>
+//        </div>
       
       )}
 

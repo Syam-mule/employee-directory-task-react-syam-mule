@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../EmployeeCard/EmployeeCard.css'
 import './AlphabetsButtons.css';
+import { getData } from '../../../services/services';
 
 interface IEmployee {
   firstname: string;
@@ -29,12 +30,10 @@ class Buttonpagination extends React.Component<IButtonProps,buttonState> {
   }
 
   componentDidMount() {
-    const employeeDetails = localStorage.getItem('employees');
-    if (employeeDetails) {
-      const employeeList: IEmployee[] = JSON.parse(employeeDetails);
-      this.setState({ filteredEmployees: employeeList });
-    }
+    const employeeDetails =getData();
+    employeeDetails && this.setState({ filteredEmployees: getData() });
   }
+  
 
   setLetter = (x: string) => {
     const letter = x.toLowerCase();

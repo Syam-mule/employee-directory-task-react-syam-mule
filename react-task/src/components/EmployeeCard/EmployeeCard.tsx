@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import profile from '../../resources/images/profile.jpg';
 import EditForm from '../Form/EditForm/EditEmployee';
-import { setData } from '../../services/services';
 import IEmployee from '../Interface/EmployeeInterface';
-
+import { getData, setData } from '../../services/services';
 
 interface IEmployeeCardProps {
   employee: IEmployee;
   departmentMap: { [key: string]: number };
   officerMap: { [key: string]: number };
-  isDeleted:()=>void;
+  isDeleted: () => void;
 }
 
 interface IEmployeeCardState {
   showEmployeeDetails: boolean;
   showEditForm: boolean;
   editEmployeeDetails: IEmployee | null;
+  showConfirmationPopup: boolean;
 }
 
 class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardState> {
@@ -25,6 +25,7 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
       showEmployeeDetails: false,
       showEditForm: false,
       editEmployeeDetails: null,
+      showConfirmationPopup: false,
     };
   }
 
@@ -39,9 +40,8 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
     this.setState({ 
       showEditForm: true, 
       editEmployeeDetails: employee
-     });
+    });
   };
-
 
   handleEditFormHide = () => {
     this.setState({ 
@@ -49,28 +49,33 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
     });
   }
 
-  deleteEmployeeData = () => {
-    const { employee } = this.props;
-    const employeeDetails = localStorage.getItem('employees');
-    if (employeeDetails) {
-      const employees: IEmployee[] = JSON.parse(employeeDetails);
-      const index = employees.findIndex(emp => emp.firstname === employee.firstname && emp.lastname === employee.lastname);
-      if (index !== -1) {
-        employees.splice(index, 1); 
-        localStorage.setItem('employees', JSON.stringify(employees));
-      
-        this.setState({ showEmployeeDetails: true},()=>{
-          this.props.isDeleted();
-        });
-      }
-    }
+  toggleConfirmationPopup = () => {
+    this.setState((prevState) => ({
+      showConfirmationPopup: !prevState.showConfirmationPopup
+    }));
   };
 
 
+deleteEmployeeData = () => {
+  const { employee } = this.props;
+   const employeeDetails: IEmployee[] = JSON.parse(localStorage.getItem('employees') ?? '[]');
+  const index = employeeDetails.findIndex(emp => emp.firstname === employee.firstname);
+  if (index !== -1) {
+    employeeDetails.splice(index, 1); 
+    setData(employeeDetails);
+    this.setState({ 
+      showEmployeeDetails: true,
+      showConfirmationPopup: false
+    }, () => {
+      this.props.isDeleted();
+    });
+  }
+};
+
   render() {
-    const {employee} = this.props;
-    const { showEmployeeDetails, showEditForm, editEmployeeDetails } = this.state;
-    
+    const { employee } = this.props;
+    const { showEmployeeDetails, showEditForm, editEmployeeDetails, showConfirmationPopup } = this.state;
+
     return (
       <div className="col-md-4 col-xl-3 specification text-secondary cardalign p-2" onClick={this.toggleEmployeeDetails}>
         <div className="card">
@@ -109,12 +114,19 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
                   <ul>Office:  {employee.officer}</ul>
                   <div className="buttons">
                     <button className="btn btn-primary ms-3 mt-5" onClick={this.openEditForm}>Edit</button>
-                    <button className="btn btn-danger ms-3 mt-5" onClick={this.deleteEmployeeData} >Delete</button>
+                    <button className="btn btn-danger ms-3 mt-5" onClick={this.toggleConfirmationPopup}>Delete</button>
                     <button className="btn btn-secondary ms-3 mt-5">Close</button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        )}
+        {showConfirmationPopup && (
+          <div className="confirmation-popup">
+            <p><b>Are you sure you want to delete this employee?</b></p>
+            <button className="btn btn-danger" onClick={this.deleteEmployeeData}>Delete</button>
+            <button className="btn btn-secondary" onClick={this.toggleConfirmationPopup}>Cancel</button>
           </div>
         )}
         {showEditForm && <EditForm editEmployee={editEmployeeDetails} onHide={this.handleEditFormHide}/>}
@@ -123,4 +135,5 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
   }
 }
 export default EmployeeCard;
+
 

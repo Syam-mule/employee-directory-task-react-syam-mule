@@ -4,6 +4,7 @@ import '../../components/EmployeeCard/EmployeeCard.css';
 import EmployeeJobtitle from "./JobTitle";
 import EmployeeOfficer from "./Officers";
 import  IEmployee  from '../Interface/EmployeeInterface';
+import { getData } from "../../services/services";
 
 
 
@@ -31,15 +32,12 @@ class EmployeeCategory extends React.Component<IEmployeeCategoryProps, IEmployee
     };
   }
 
-  componentDidMount() {
-    const employeesData = localStorage.getItem("employees");
-    if (employeesData) {
-      const employees = JSON.parse(employeesData);
-      this.setState({employees}, () => {
-        this.updateDepartmentMap();
-      });
-    }
-  }
+ 
+componentDidMount() {
+  const employeeDetails = getData();
+  employeeDetails && this.setState({ employees: getData() },
+   this.updateDepartmentMap);
+}
 
   updateDepartmentMap() {
     const departmentMap: { [key: string]: number } = {};

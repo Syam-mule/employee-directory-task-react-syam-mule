@@ -62,7 +62,7 @@ class FormValidations extends Component<{}, FormState> {
         isValid = false;
       }
   
-      else if (this.state.email.trim() === '' || !/^[a-zA-Z\s-]{3,20}$/.test(this.state.lastName)) {
+      else if (this.state.email.trim() === '' || !/^[a-zA-Z\s-]{3,20}$/.test(this.state.email)) {
         errors.email = 'Enter the Email Properly abc@gmail.com';
         isValid = false;
       }
@@ -87,7 +87,7 @@ class FormValidations extends Component<{}, FormState> {
         isValid = false;
       }
 
-      else if (this.state.officer.trim() === '' || !/^[a-zA-Z0-9]/.test(this.state.officer)) {
+      else if (this.state.officer.trim() === '' || !/^/.test(this.state.officer)) {
         errors.officer = 'Select the officer Properly.. ';
         isValid = false;
       }
@@ -96,19 +96,12 @@ class FormValidations extends Component<{}, FormState> {
     return isValid;
   };
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (this.validateForm()) {
-      console.log('Form is valid, submitting...');
-    } else {
-      console.log('Form is invalid');
-    }
-  };
+  
 
   render() {
     const { errors } = this.state;
     return (
-      // <RegistrationForm/>
+    
       <></>
     );
   }

@@ -1,5 +1,4 @@
 
-import SaveEmployee from '../components/RightsideContainer/EmployeeDetailsCard/Rightsidecontainer'
 import IEmployee from '../components/Interface/EmployeeInterface'
   
 export function  getData() {

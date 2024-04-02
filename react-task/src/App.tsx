@@ -25,7 +25,6 @@ class App extends React.Component<{},IAppState> {
       <div className='container'>
            <Header/>
       <div className="row col-lg-12">
-
             <RightContainer/>  
       </div>
       

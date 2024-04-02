@@ -24,7 +24,7 @@ class Searchfilter extends Component<Props, IElementState> {
 
   componentDidMount() {
     const savedSearchTerm = localStorage.getItem('searchTerm');
-    const savedSearchElement = localStorage.getItem('searchElement') as keyof IEmployee || 'all';
+    const savedSearchElement = localStorage.getItem('searchElement') as keyof IEmployee || 'firstname';
     if (savedSearchTerm && savedSearchElement) {
       this.setState({searchTerm: savedSearchTerm,searchElement: savedSearchElement,
       });
@@ -51,7 +51,7 @@ class Searchfilter extends Component<Props, IElementState> {
 
   render() {
     const { searchTerm, searchElement } = this.state;
-
+    
     return (
       <div className="employeecard">
         <nav className="navbar navbar-expand-lg">
@@ -80,7 +80,7 @@ class Searchfilter extends Component<Props, IElementState> {
                   className="dropdown"
                   value={searchElement}
                   onChange={this.handleSearchElementChange}>
-                  <option value="">select options</option>
+                  {/* <option value="">select options</option> */}
                   <option value="firstname">First Name</option>
                   <option value="jobtitle">Job Title</option>
                   <option value="department">Department</option>
