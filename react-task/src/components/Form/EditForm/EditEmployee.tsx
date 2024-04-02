@@ -3,7 +3,7 @@ import '../RegistrationForm/RegistrationForm.css'
 import './EditEmployee.css';
 import  IEmployee  from '../../Interface/EmployeeInterface';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
-
+import { getData } from '../../../services/services';
 interface IEditFormProps {
   editEmployee: IEmployee | null;
   onHide: () => void;
@@ -31,29 +31,46 @@ class EditForm extends Component<IEditFormProps, IEditFormState> {
     }));
   };
 
-  handleSubmit = (data: any) => {
-    console.log(data, 'data after update hit')
+  // handleEdit = (index: number,data: any) => {
+  //   const editedEmployee = data;
+  //   if (editedEmployee) {
+  //     const employeeDetails = localStorage.getItem('employees');
+  //     if (employeeDetails) {
+  //       const employee: IEmployee[] = JSON.parse(employeeDetails);
+  //        const index = employee.findIndex(employee => employee.firstname === editedEmployee.firstname);
+  //       if (index !== 1) {
+  //         employee[index] = editedEmployee;
+  //         console.log("Updating the details for index: " + index);
+  //         localStorage.setItem("employees", JSON.stringify(employee));
+  //         this.props.onHide();
+        
+  //       }
+  //     }
+  //   }
+  // };
+
+  handleEdit = (index: number, data: any) => {
     const editedEmployee = data;
     if (editedEmployee) {
-      const employeeDetails = localStorage.getItem('employees');
+       const employeeDetails = localStorage.getItem('employees');
+     
       if (employeeDetails) {
-        const employee: IEmployee[] = JSON.parse(employeeDetails);
-        const index = employee.findIndex(employee => employee.firstname === editedEmployee.firstname && employee.lastname === editedEmployee.lastname);
-        if (index !== 1) {
-          employee[index] = editedEmployee;
+        const employees: IEmployee[] = JSON.parse(employeeDetails);
+        if (index >= 0 && index < employees.length) {
+          employees[index] = editedEmployee;
           console.log("Updating the details for index: " + index);
-          localStorage.setItem("employees", JSON.stringify(employee));
+          localStorage.setItem("employees", JSON.stringify(employees));
           this.props.onHide();
         }
       }
     }
   };
-
+  
   render() {
     const { editedEmployee } = this.state;
     return (
       <>
-      <RegistrationForm editdata={editedEmployee} handleUpdateBtnClick ={this.handleSubmit}/>
+      <RegistrationForm editdata={editedEmployee} handleUpdateBtnClick ={this.handleEdit}/>
       </>
     )
   }

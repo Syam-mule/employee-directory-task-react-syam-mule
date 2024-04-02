@@ -67,7 +67,6 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
   };
 
 
-  
   render() {
     const {employee} = this.props;
     const { showEmployeeDetails, showEditForm, editEmployeeDetails } = this.state;

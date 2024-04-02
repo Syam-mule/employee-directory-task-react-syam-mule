@@ -27,6 +27,7 @@ class EmployeeJobtitle extends React.Component<IEmployeeJobtitleProps, IEmployee
   componentDidUpdate(prevProps: IEmployeeJobtitleProps) {
     if (prevProps.employees !== this.props.employees) {
       this.updateEmployeeJobtitle();
+     
     }
   }
 

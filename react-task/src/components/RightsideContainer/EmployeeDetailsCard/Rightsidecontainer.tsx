@@ -89,7 +89,7 @@ deletedEmployees =()=>{
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <Searchfilter filteringCards = {this.filteringCards}/>
 
-                <button className="addemployeebtn mt-2 border-0" onClick={this.toggleRegistration}>
+                <button className="addemployeebtn mt-2 border-0" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={this.toggleRegistration}>
                   Add Employee 
                   </button>
                 {isRegistrationOpen && <RegistrationForm handleAddBtnClick={this.handleData}/>}

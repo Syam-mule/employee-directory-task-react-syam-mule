@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import EmployeeCategory from './components/Filter/Employeecategory';
 import RightContainer from './components/RightsideContainer/EmployeeDetailsCard/Rightsidecontainer';
 import IEmployee from './components/Interface/EmployeeInterface';
+import {getData}from './services/services'
 
 interface IAppState
 {
@@ -15,8 +16,7 @@ class App extends React.Component<{},IAppState> {
     super(props)
    this. state = 
     {
-       employees:JSON.parse(localStorage.getItem('employees')||"[]")
-
+ employees:getData(),
     }
   }
 

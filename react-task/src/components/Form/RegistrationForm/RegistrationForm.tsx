@@ -5,7 +5,7 @@ import  IEmployee  from '../../Interface/EmployeeInterface';
 
 interface IRegistrationFormState {
   data: {
-     firstname: string;
+  firstname: string;
   lastname: string;
   email: string;
   department: string;
@@ -14,9 +14,9 @@ interface IRegistrationFormState {
   skypeid: string;
   officer: string;
   }
- 
+  updatebtn: boolean;
   userRegistrationForm: boolean;
-  
+
   errors: {
     firstName: string;
     lastName: string;
@@ -57,8 +57,9 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
       skypeid: "",
       officer: "",
       },
-      
-      userRegistrationForm: true,
+
+      updatebtn: !this.props.editdata,
+      userRegistrationForm:true,
       errors: {
         firstName: '',
         lastName: '',
@@ -177,8 +178,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
     return isValid;
   };
 
-  handleSubmit = (e: any) => {
-    console.log('handle submit hit')
+  handleSubmit = (e:any) => {
     e.preventDefault();
     if (this.validateForm()) {  
     const { firstname, lastname, email, department, jobtitle, phonenumber, skypeid, officer } = this.state.data;
@@ -200,36 +200,36 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
 
     saveEmployeeData(employee);
     this.setState(prevState => ({
-      userRegistrationForm: false,
-    }));
+      userRegistrationForm: true 
+       }));
     this.props.handleAddBtnClick!();
+    this.setState({ updatebtn: true,userRegistrationForm: false });
   }
   };
   
   resetForm = () => {
     this.setState({
       data: {
-       firstname: "",
-      lastname: "",
-      email: "",
-      department: "",
-      jobtitle: "",
-      phonenumber: "",
-      skypeid: "",
-      officer: "",
+        firstname: "",
+        lastname: "",
+        email: "",
+        department: "",
+        jobtitle: "",
+        phonenumber: "",
+        skypeid: "",
+        officer: "",
       }
-      
     });
   };
 
   handleCloseForm = () => {
-    console.log("close form hit")
     this.setState({ 
       userRegistrationForm: false
      });
   };
   handleUpdateBtnClick = ()=>{
     this.props.handleUpdateBtnClick(this.state.data)
+    this.setState({ updatebtn: false,userRegistrationForm: false });
   }
 
   render() {
@@ -251,82 +251,45 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
 
     return (
     <> 
-    {userRegistrationForm && (<div  >
-   
-        <form className="temp"
-        onSubmit={this.handleSubmit}
-        onReset={this.resetForm}
-        >
-
-<label className="fs-4 fw-bold">{this.state.userRegistrationForm?"ADD EMPLOYEE":"EditEmployee"}</label>
-        <div className="row">
-          <div className="mb-2 col-md-5">
+    {userRegistrationForm && (<div>
+       {/* <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true"  onClick={this.handleUpdateBtnClick}>
+           <div className="modal-dialog">
+              <div className="modal-content"> 
+                <div className="modal-body"> */}
+                  <form className="userSignform" onSubmit={this.handleSubmit} onReset={this.resetForm}>
+                       {/* <div className="modal-header">
+                           <h5 className="modal-title" id="exampleModalLabel">{this.state.userRegistrationForm ?"Add Employee" : "Edit Employee"}</h5>
+                           <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                         </div> */}
+     {/* <label className="fs-4 fw-bold">{this.state.userRegistrationForm?("ADD EMPLOYEE"):("EDIT EMPLOYEE")}</label> */}
+                 <div className="row">
+           <div className="mb-2 col-md-5">
             <span className="close" title="Close Modal" onClick={this.handleCloseForm}>
               <i className="fa fa-close closepopup"></i>
             </span>
-            <label>
-              <b>
-                 hey  First Name<span className="text-danger">*</span>
-              </b>
+            <label><b> First Name<span className="text-danger">*</span></b>
             </label>
-            <input
-              type="text"
-              name="firstname"
-              id="firstname"
-              className="form-control"
-              value={firstname}
-              onChange={this.handleFirstNameChange}
-              placeholder="Enter your first name"
+            <input type="text" name="firstname" id="firstname"  className="form-control" value={firstname} onChange={this.handleFirstNameChange} placeholder="Enter your first name"
               required />
             {errors.firstName && <span className="error">{errors.firstName}</span>}
           </div>
           <div className="mb-2 col-md-5">
-            <label>
-              <b>
-                Last Name<span className="text-danger">*</span>
-              </b>
-            </label>
-            <input
-              type="text"
-              name="lastname"
-              id="lastname"
-              className="form-control"
-              value={lastname}
-              onChange={this.handleLastNameChange}
-              placeholder="Enter your last name"
-              required />
+            <label> <b>  Last Name<span className="text-danger">*</span></b> </label>
+            <input  type="text"  name="lastname" id="lastname" className="form-control" value={lastname} onChange={this.handleLastNameChange} placeholder="Enter your last name"required/>
             {errors.lastName && <span className="error">{errors.lastName}</span>}
           </div>
 
-          <div className="mb-2 col-md-10">
-            <label>
-              <b>
-                Email<span className="text-danger">*</span>
-              </b>
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="form-control"
-              value={email}
-              onChange={this.handleEmailChange}
-              placeholder="Enter your email"
+          <div className="mb-2 col-md-10"> 
+          <label> <b> Email<span className="text-danger">*</span> </b> </label>
+            <input  type="email" name="email" id="email" className="form-control" value={email} onChange={this.handleEmailChange} placeholder="Enter your email"
               required />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
           <div className="mb-2 col-md-5">
-            <label>
-              <b>
-                Department<span className="text-danger">*</span>
-              </b>
+            <label> <b> Department<span className="text-danger">*</span> </b>
             </label>
-            <select
-              className="form-select"
-              name="department"
-              id="department"
-              onChange={this.selectChange}
-              value={department} required>
+            <select  className="form-select" name="department" id="department"
+              onChange={this.selectChange} value={department} required>
               <option value="">Select Department</option>
               <option value="Development">Development</option>
               <option value="Testing">Testing</option>
@@ -336,19 +299,10 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
             {errors.department && <span className="error">{errors.department}</span>}
           </div>
           <div className="mb-2 col-md-5">
-            <label>
-              <b>
-                Job Title<span className="text-danger">*</span>
-              </b>
-            </label>
-            <select
-              className="form-select"
-              name="jobtitle"
-              id="jobtitle"
-              onChange={this.selectJobTitle}
+            <label> <b>  Job Title<span className="text-danger">*</span> </b></label>
+            <select className="form-select" name="jobtitle" id="jobtitle" onChange={this.selectJobTitle}
               value={jobtitle}
-              required
-            >
+              required>
               <option value="">Select Job Title</option>
               <option value="WebDeveloper">Web Developer</option>
               <option value="SoftwareEngineer">Software Engineer</option>
@@ -359,17 +313,9 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
             {errors.jobTitle && <span className="error">{errors.jobTitle}</span>}
           </div>
           <div className="mb-2 col-md-10">
-            <label>
-              <b>
-                Phone Number<span className="text-danger">*</span>
-              </b>
+            <label>  <b> Phone Number<span className="text-danger">*</span> </b>
             </label>
-            <input
-              type="text"
-              name="phonenumber"
-              id="phonenumber"
-              className="form-control"
-              value={phonenumber}
+            <input type="text"  name="phonenumber" id="phonenumber" className="form-control"value={phonenumber}
               onChange={this.handlePhoneNumberChange}
               maxLength={10}
               placeholder="Enter your phone number"
@@ -377,34 +323,18 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
             {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
           </div>
           <div className="mb-2 col-md-10">
-            <label>
-              <b>
-                Skype ID<span className="text-danger">*</span>
-              </b>
+            <label> <b>  Skype ID<span className="text-danger">*</span> </b>
             </label>
-            <input
-              type="text"
-              name="skypeid"
-              id="skypeid"
-              className="form-control"
-              value={skypeid}
+            <input  type="text" name="skypeid" id="skypeid" className="form-control" value={skypeid}
               onChange={this.handleSkypeIdChange}
               placeholder="Enter your Skype ID"
               required />
             {errors.skypeId && <span className="error">{errors.skypeId}</span>}
           </div>
+
           <div className="mb-2 col-md-10">
-            <label>
-              <b>
-                Office<span className="text-danger">*</span>
-              </b>
-            </label>
-            <select
-              className="form-select"
-              name="office"
-              id="office"
-              onChange={this.selectOfficer}
-              value={officer}
+            <label> <b> Office<span className="text-danger">*</span></b></label>
+            <select  className="form-select" name="office" id="office" onChange={this.selectOfficer} value={officer}
               required>
               <option value="">Select Office location</option>
               <option value="DurghamCheruvu">Durgham Cheruvu</option>
@@ -414,40 +344,44 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
             </select>
             {errors.officer && <span className="error">{errors.officer}</span>}
           </div>
+
           <div className="mb-2 mt-4 col-md-3">
-            <button
-              className="btn reset btn-danger"
-              type="reset">
+            <button className="btn reset btn-danger" type="reset">
               Reset
             </button>
           </div>
 
           <div className="mb-2 mt-3 col-md-3">
-            {this.state.data? (<button
-              className="btn btn-success formate"
-              id="submitform"
-              name="submitform"
-              value="submit"
-              type="submit"
-              onClick={this.handleUpdateBtnClick}>
-                
-         Add User
-             </button>):(<button
-              className="btn btn-success formate"
+            {this.state.updatebtn?
+            (<button
+              className="btn btn-primary formate"
               id="submitform"
               name="submitform"
               value="submit"
               type="submit" 
               onClick={this.handleSubmit}>
-          Update User
+               Add User
+             </button>):
+            (<button
+              className="btn btn-success formate"
+              id="submitform"
+              name="submitform"
+              value="submit"
+              type="submit"
+              onClick={this.handleUpdateBtnClick}>  
+              Update User
              </button>)}
           </div>
         </div>
       </form>
       </div>
+  //      </div>
+  //      </div>
+  //     </div>
+  //  </div>
       
       )}
-      
+
       </>
     );
   }

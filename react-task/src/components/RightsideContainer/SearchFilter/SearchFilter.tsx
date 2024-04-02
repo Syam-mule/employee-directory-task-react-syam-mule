@@ -80,7 +80,7 @@ class Searchfilter extends Component<Props, IElementState> {
                   className="dropdown"
                   value={searchElement}
                   onChange={this.handleSearchElementChange}>
-                  <option value="all">select options</option>
+                  <option value="">select options</option>
                   <option value="firstname">First Name</option>
                   <option value="jobtitle">Job Title</option>
                   <option value="department">Department</option>

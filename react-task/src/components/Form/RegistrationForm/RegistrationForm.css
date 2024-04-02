@@ -1,13 +1,4 @@
-/* .usersignin{
-    background-color:white;
-    width:800px;
-    padding: 25px;
-    position:absolute;
-   margin-left: -100%;
-    box-shadow: 0 0px 10px 3px rgb(0 0 0 /0.2);
-    border-radius: 6px;
-} */
-.temp{
+.userSignform{
   background: none;
   background-color:rgb(236, 229, 229);
   width:800px;
