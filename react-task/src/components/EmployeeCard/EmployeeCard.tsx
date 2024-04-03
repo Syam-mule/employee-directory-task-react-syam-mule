@@ -50,15 +50,14 @@ class EmployeeCard extends React.Component<IEmployeeCardProps, IEmployeeCardStat
   }
 
   toggleConfirmationPopup = () => {
-    this.setState((prevState) => ({
-      showConfirmationPopup: !prevState.showConfirmationPopup
-    }));
-  };
-
+    this.setState({
+        showConfirmationPopup: !this.state.showConfirmationPopup
+    });
+};
 
 deleteEmployeeData = () => {
   const { employee } = this.props;
-   const employeeDetails: IEmployee[] = JSON.parse(localStorage.getItem('employees') ?? '[]');
+   const employeeDetails: IEmployee[] =getData();
   const index = employeeDetails.findIndex(emp => emp.firstname === employee.firstname);
   if (index !== -1) {
     employeeDetails.splice(index, 1); 
@@ -77,7 +76,7 @@ deleteEmployeeData = () => {
     const { showEmployeeDetails, showEditForm, editEmployeeDetails, showConfirmationPopup } = this.state;
 
     return (
-      <div className="col-md-4 col-xl-3 specification text-secondary cardalign p-2" onClick={this.toggleEmployeeDetails}>
+      <div className="col-md-4 col-xl-3 specification text-secondary  p-2" onClick={this.toggleEmployeeDetails}>
         <div className="card">
           <div className="card-block d-flex">
             <div className="image">
@@ -122,6 +121,7 @@ deleteEmployeeData = () => {
             </div>
           </div>
         )}
+
         {showConfirmationPopup && (
           <div className="confirmation-popup">
             <p><b>Are you sure you want to delete this employee?</b></p>
@@ -129,7 +129,9 @@ deleteEmployeeData = () => {
             <button className="btn btn-secondary" onClick={this.toggleConfirmationPopup}>Cancel</button>
           </div>
         )}
+
         {showEditForm && <EditForm editEmployee={editEmployeeDetails} onHide={this.handleEditFormHide}/>}
+        
       </div>
     );
   }

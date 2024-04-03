@@ -53,9 +53,9 @@ class Searchfilter extends Component<Props, IElementState> {
     const { searchTerm, searchElement } = this.state;
     
     return (
-      <div className="employeecard">
+      <div className="employeefilter">
         <nav className="navbar navbar-expand-lg">
-          <span className="search">Search</span>
+          <span className="search me-2" >Search</span>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -68,7 +68,7 @@ class Searchfilter extends Component<Props, IElementState> {
                     value={searchTerm}
                     onChange={this.handleSearchTermChange}
                   />
-                  <button className="border-0 clearbtn me-3" type="button" onClick={this.handleClear}>
+                  <button className="border-0 clearbtn me-4" type="button" onClick={this.handleClear}>
                     Clear
                   </button>
                 </form>

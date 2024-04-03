@@ -1,9 +1,9 @@
 .card {
-    border-radius: 1px!important;
-    background-color: #d2cecedd!important;
+    border-radius: 1px;
+    background-color: #d2cecedd;
     border: none;
     height:110px;
-    width:235px;
+    width:255px;
     z-index: -1;
 }
 .employeeImg{
@@ -26,18 +26,18 @@ margin-left:18px;
     background-color: #aeadad;
 }
 .emails{
-    color: #aeadad!important;
+    color: #aeadad;
 }
 
 .employeeLabel{
     font-size: 35px;
-    margin-top: -25px; 
+   margin-top: -15px;
     margin-left: 30px;
    color: rgb(47, 44, 44);
 }
 
 .content { 
-    position: absolute; 
+    position: fixed; 
     top: 30%; 
     left: 30%; 
     background-color:white;

@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import  IEmployee  from '../Interface/EmployeeInterface';
- import './Officers.css'
 
 interface IEmployeeOfficerProps {
   employees: IEmployee[];

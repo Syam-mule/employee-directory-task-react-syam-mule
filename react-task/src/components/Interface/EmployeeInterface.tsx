@@ -1,6 +1,5 @@
 
 interface IEmployee {
-    searchingText: string;
     firstname: string;
     lastname: string;
     email: string;

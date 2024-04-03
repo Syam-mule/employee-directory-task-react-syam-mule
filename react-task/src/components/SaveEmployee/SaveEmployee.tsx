@@ -1,15 +1,10 @@
 import IEmployee from "../Interface/EmployeeInterface";
-
-
+import { getData, setData } from "../../services/services";
 
 const saveEmployeeData = (employee: IEmployee) => {
-  const employeeDetails = localStorage.getItem("employees");
-  let employees: IEmployee[]=[];
-  if (employeeDetails) {
-    employees = JSON.parse(employeeDetails);
-  }
+  const employees = getData();
   employees.push(employee);
-  localStorage.setItem("employees", JSON.stringify(employees));
+  setData(employees);
 };
 
 export default saveEmployeeData;

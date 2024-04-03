@@ -38,7 +38,7 @@ class Header extends React.Component{
             </div>
           </nav>
         </header>
-        <hr className="mt-2"/>
+        <hr className="mt-2 hr"/>
       </div>
     );
   }

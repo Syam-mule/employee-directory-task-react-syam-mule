@@ -193,13 +193,9 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
        phonenumber,
        skypeid,
        officer,
-       searchingText: "",
      };
 
     saveEmployeeData(employee);
-    this.setState(prevState => ({
-      userRegistrationForm: false
-       }));
     this.props.handleAddBtnClick!();
     this.setState({ updatebtn: true , userRegistrationForm: false});
   }
@@ -313,7 +309,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
           <div className="mb-2 col-md-10">
             <label>  <b> Phone Number<span className="text-danger">*</span> </b>
             </label>
-            <input type="text"  name="phonenumber" id="phonenumber" className="form-control"value={phonenumber}
+            <input type="text" name="phonenumber" id="phonenumber" className="form-control"value={phonenumber}
               onChange={this.handlePhoneNumberChange}
               maxLength={10}
               placeholder="Enter your phone number"
@@ -344,7 +340,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
           </div>
 
           <div className="mb-2 mt-4 col-md-3">
-            <button className="btn reset btn-danger" type="reset">
+            <button className="btn resetbtn btn-danger" type="reset">
               Reset
             </button>
           </div>
@@ -352,7 +348,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
           <div className="mb-2 mt-3 col-md-3">
             {this.state.updatebtn?
             (<button
-              className="btn btn-primary formate"
+              className="btn btn-primary formatebtn"
               id="submitform"
               name="submitform"
               value="submit"
@@ -361,7 +357,7 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
                Add User
              </button>):
             (<button
-              className="btn btn-success formate"
+              className="btn btn-success formatebtn"
               id="submitform"
               name="submitform"
               value="submit"
@@ -373,10 +369,10 @@ class RegistrationForm extends React.Component<IRegistrationFormProps, IRegistra
         </div>
       </form>
       </div>
-//        </div>
-//       </div>
-//       </div>
-//        </div>
+      //  </div>
+      // </div>
+      //  </div>
+      // </div>
       
       )}
 

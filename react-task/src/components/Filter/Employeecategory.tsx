@@ -52,7 +52,7 @@ componentDidMount() {
     const { employees} = this.state;
 
     return (
-      <div className="leftcontainer">
+      <div className="leftcontainer"style={{marginLeft:36}}>
         <div className="mt-4">
           <h6>Department</h6>
           <div className="specification">

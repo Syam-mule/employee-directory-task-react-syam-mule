@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
-import EmployeeCategory from './components/Filter/Employeecategory';
-import RightContainer from './components/RightsideContainer/EmployeeDetailsCard/Rightsidecontainer';
+import EmployeeCategory from './components/Filter/EmployeeCategory';
+import RightContainer from './components/RightsideContainer/EmployeeDetailsCard/RightsideContainer';
 import IEmployee from './components/Interface/EmployeeInterface';
 import {getData}from './services/services'
 

@@ -1,5 +1,4 @@
-
-/* .userSignform {
+.userSignform {
   background-color: rgb(255, 255, 255);
   width: 800px;
   padding: 25px;
@@ -9,29 +8,12 @@
   position: absolute;
   box-shadow: 0 0px 10px 3px rgb(0 0 0 / 0.2);
   border-radius: 6px;
-  left:30%;
-  top: 50%;
-  transform: translate(-20%, -20%);
-} */
-
-.userSignform {
-  background-color: rgb(255, 255, 255);
-  width: 800px;
-  padding: 25px;
-  display: grid;
-  align-items: center;
-  position: absolute;
-  box-shadow: 0 0px 10px 3px rgb(0 0 0 / 0.2);
-  border-radius: 6px;
-  left: 20%;
-  top: 50%;
-  transform: translate(-20%, -25%);
-} 
-
-.reset{
-    width:200px;
+  left: 22%; 
+  top: 50%; 
+  transform: translate(-28%, -20%); 
 }
-.formate{
+
+.formatebtn{
     margin-left: 440px;
     width:120px;
 }
@@ -50,4 +32,12 @@
   } 
   .error{
     color: #f44336;
+  }
+  .updatebtn{
+    margin-left:620px;
+  }
+  .resetbtn{
+    margin-left:400px;
+    margin-top: -12px;
+    width:125px;
   }

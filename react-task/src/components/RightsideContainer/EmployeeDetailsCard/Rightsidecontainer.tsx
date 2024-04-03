@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import RegistrationForm from "../../Form/RegistrationForm/RegistrationForm";
-import './Rightsidecontainer.css';
+import './RightsideContainer.css';
 import Buttonpagination from "../A-Z AlphabetsButtons/AlphbetsButtons";
 import Searchfilter from "../SearchFilter/SearchFilter";
 import  IEmployee  from '../../Interface/EmployeeInterface';
 import { EmployeeContainer } from "../../EmployeeContainer/EmployeeContainer";
-import EmployeeCategory from "../../Filter/Employeecategory";
+import EmployeeCategory from "../../Filter/EmployeeCategory";
 import { getData } from "../../../services/services";
 
 interface IRightsideComponentState {
@@ -86,7 +86,7 @@ deletedEmployees =()=>{
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <Searchfilter filteringCards = {this.filteringCards}/>
 
-                <button className="addemployeebtn mt-2 border-0" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={this.toggleRegistration}>
+                <button className="addemployeebtn mt-2 border-0" onClick={this.toggleRegistration}>
                   Add Employee 
                   </button>
                 {isRegistrationOpen && <RegistrationForm handleAddBtnClick={this.handleData}/>}

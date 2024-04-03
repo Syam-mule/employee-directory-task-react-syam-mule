@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import '../../EmployeeCard/EmployeeCard.css'
 import './AlphabetsButtons.css';
-import { getData } from '../../../services/services';
+import IEmployee from '../../Interface/EmployeeInterface';
 
-interface IEmployee {
-  firstname: string;
-  lastname: string;
-  email: string;
-  department: string;
-  jobtitle: string;
-  phonenumber: string;
-  skypeid: string;
-  officer: string;
-}
+
 
 interface buttonState {
   filteredEmployees: IEmployee[];
+ 
 }
 interface IButtonProps{
   setFilteredData: (data: string)=>void;
@@ -28,12 +20,6 @@ class Buttonpagination extends React.Component<IButtonProps,buttonState> {
       filteredEmployees: [],
     };
   }
-
-  componentDidMount() {
-    const employeeDetails =getData();
-    employeeDetails && this.setState({ filteredEmployees: getData() });
-  }
-  
 
   setLetter = (x: string) => {
     const letter = x.toLowerCase();
@@ -50,13 +36,15 @@ class Buttonpagination extends React.Component<IButtonProps,buttonState> {
             <button
               key={letter}
               type="button"
-              className="buttonsBg border me-2"
+              className="buttonsBg border"
               onClick={() => this.setLetter(letter)}>
               {letter}
             </button>
           ))}
         </div>
+     
       </div>
+      
     );
   }
 }
